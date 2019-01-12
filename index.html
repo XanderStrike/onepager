@@ -1,15 +1,48 @@
 <html>
   <head>
     <title>One Pager</title>
+<style>
+body {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 0 15px;
+  font-size: 22px;
+  line-height: 1.4;
+}
+input{
+  width:100%;
+  font-size:24px;
+  padding:0.5em
+}
+textarea{
+  width:100%;
+  font-size: 14px;
+  padding: 0.5em;
+  height: 50vh;
+}
+.button {
+  color:#fff;
+  background-color:#333;
+  font-size:40px;
+  padding:10px;
+  cursor:pointer
+}
+</style>
   </head>
   <body>
     <h1>One Pager</h1>
 
     <form action="/new">
-      <input name="filename" placeholder="filename"></input><br>
+      <input autocomplete="off" name="filename" placeholder="filename"></input><br>
       <textarea name="content" placeholder="contents"></textarea><br>
-      <input type="submit" value="Save">
+      <input class="button" type="submit" value="Save">
     </form>
 
+
+    <ul>
+    {{ range .Files }}
+      <li><a href="/pages/{{ .Name }}">{{ .Name }}</a></li>
+    {{ end }}
+    </ul>
   </body>
 </html>

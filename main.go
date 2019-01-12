@@ -4,18 +4,27 @@ import (
 	"fmt"
 	"html/template"
 	"io"
+	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/gorilla/mux"
 	"github.com/peterbourgon/diskv"
 )
 
 type HomePage struct {
+	Files []os.FileInfo
 }
 
 func HomeHandler(w http.ResponseWriter, r *http.Request) {
-	render(w, "index.html", HomePage{})
+	files, err := ioutil.ReadDir("./pages/")
+	if err != nil {
+		log.Fatal(err)
+	}
+	render(w, "index.html", HomePage{
+		Files: files,
+	})
 }
 
 func flatTransform(s string) []string { return []string{} }
